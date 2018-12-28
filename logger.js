@@ -11,13 +11,13 @@ const listeners = {
   },
 
   success: function (data){
-    console.log('successfully read ', data);
+    console.log('successfully read');
   }
 }
 
+events.on('success', listeners.success);
 events.on('error', listeners.errorHandler);
 events.on('saved', listeners.saved);
-events.on('success', listeners.success);
 
 
 module.exports = listeners;

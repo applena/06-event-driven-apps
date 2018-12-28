@@ -1,6 +1,6 @@
 'use strict';
 
-let logger = require('../logger.js');
+let listener = require('../logger.js');
 let alterFile = require('../file-to-upper');
 
 
@@ -9,59 +9,57 @@ describe('reads a file and changes it to upper case then writes it to a new file
   let errorHandlerSpy;
   let savedSpy;
   let successSpy;
+  let consoleSpy;
+  let errorSpy;
 
+
+  
   beforeAll(() => {
-    errorHandlerSpy = jest.spyOn(logger, 'errorHandler');
-    successSpy = jest.spyOn(logger, 'success');
-    savedSpy = jest.spyOn(logger, 'saved');
+    errorSpy = jest.spyOn(console, 'error');
+    consoleSpy = jest.spyOn(console, 'log');
+    errorHandlerSpy = jest.spyOn(listener, 'errorHandler');
+    successSpy = jest.spyOn(listener, 'success');
+    savedSpy = jest.spyOn(listener, 'saved');
   });
 
   //happy path
   it('reads a file', () => {
-    alterFile(__dirname+'/test.file.txt');
-    expect(successSpy).toHaveBeenCalled();
+    listener.success(__dirname+'/test.file.txt');
+    expect(successSpy).resolves;
   })
 
-  it('changes a file to upper case', () => {
-    
+  it('calls the saved function when it successfully saves the file', () => {
+    listener.saved(__dirname+'/test.file.txt');
+    expect(savedSpy).toBeCalled();
   })
 
-  it('writes a file', () => {
-    
+  it('calls the success function when it successfully reads the file', () => {
+    listener.success(__dirname+'/test.file.txt');
+    expect(successSpy).toBeCalled();
+  })
+
+  it('calls the errorHandler function when there is an error', () => {
+    listener.errorHandler(__dirname+'/test.file.txt');
+    expect(errorHandlerSpy).toBeCalled();
+  })
+
+  it('console logs success when a file is saved', () => {
+    listener.success(__dirname+'/test.file.txt');
+    expect(consoleSpy).resolves;
   })
 
   it('requires a file name to read', () => {
-    
+    expect(()=>{
+      alterFile();
+    }).toThrow('you must enter a file path');
   })
 
   afterAll(() => {
     errorHandlerSpy.mockRestore();
     successSpy.mockRestore();
     savedSpy.mockRestore();
+    errorSpy.mockRestore();
+    consoleSpy.mockRestore();
   });
 
 })
-
-// describe('foobar', () => {
-//   let fooSpy;
-//   let barSpy;
-
-//   beforeAll(() => {
-//     // main.foo === foo
-//     // main.bar === bar
-//     fooSpy = jest.spyOn(main, 'foo');
-//     barSpy = jest.spyOn(main, 'bar');
-//   });
-
-//   it('calls `foo` and `bar`', () => {
-//     expect(fooSpy).toHaveBeenCalled();
-//     expect(barSpy).toHaveBeenCalled();
-//   });
-
-//   afterAll(() => {
-//     // fooSpy.mockReset();
-//     // barSpy.mockReset();
-//     fooSpy.mockRestore();
-//     barSpy.mockRestore();
-//   });
-// });
