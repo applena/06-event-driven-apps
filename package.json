@@ -4,11 +4,24 @@
   "description": "Events Lab",
   "main": "app.js",
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "lint": "eslint **/*.js",
+    "test": "jest --coverage --verbose",
+    "test-watch": "jest --watchAll --coverage --verbose"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "jest": "^23.6.0"
-  }
+    "jest": "^23.6.0",
+    "sinon": "7.2.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/applena/06-event-driven-apps.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/applena/06-event-driven-apps/issues"
+  },
+  "homepage": "https://github.com/applena/06-event-driven-apps#readme"
 }

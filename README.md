@@ -1,42 +1,47 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Project Name
+## Event Driven App
 
-### Author: Student/Group Name
+### Author: Lena eivy
 
 ### Links and Resources
-* [repo](http://xyz.com)
-* [travis](http://xyz.com)
-* [back-end](http://xyz.com)
-* [front-end](http://xyz.com)
+* [repo](https://github.com/applena/06-event-driven-apps)
+* [travis](https://travis-ci.com/applena/06-event-driven-apps.svg?branch=master)
 
 ### Modules
-#### `modulename.js`
+#### `event.js`
 ##### Exported Values and Methods
 
-###### `foo(thing) -> string`
-Usage Notes or examples
+###### `events -> new instance of an eventEmiter`
 
-###### `bar(array) -> array`
-Usage Notes or examples
+#### `file-to-upper.js`
+##### Exported Values and Methods
+
+###### `alterFile(file) -> file path`
+function that returns takes in a file path, reads the file, uppercases the content and saves it back to the same file name.
+
+#### `logger.js`
+##### Exported Values and Methods
+
+###### `listeners -> object`
+Listeners is an object that holds three methods. 
+* saved - takes in a file and console.log the file name and saved
+* success - takes in the data from the file that has been transformed to upper case and console.log that it was successfully read.
+* errorHandler - takes in an error and sends that error to the console.
 
 ### Setup
-#### `.env` requirements
-* `PORT` - Port Number
-* `MONGODB_URI` - URL to the running mongo instance/db
 
 #### Running the app
-* `npm start`
-* Endpoint: `/foo/bar/`
-  * Returns a JSON object with abc in it.
-* Endpoint: `/bing/zing/`
-  * Returns a JSON object with xyz in it.
+* `npm i`
+* `node file-path`
 
 #### Tests
-* How do you run tests?
-* What assertions were made?
-* What assertions need to be / should be made?
+* `npm run test` will run the unit tests
+* I'm asserting the following:
+  * that a valid file path was entered by the user
+  * that a saved console message will appear in the console when the file is successfully saved
+  * that a successfully read message will appear in the console when the file has been read
 
-#### UML
-Link to an image of the UML for your application and response to events
+### Contributions
+Special thanks to my husband Adam for helping me complete this assignment.
