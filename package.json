@@ -11,8 +11,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "jest": "^23.6.0",
-    "sinon": "7.2.2"
+    "eslint": "5.11.1",
+    "jest": "^23.6.0"
   },
   "devDependencies": {},
   "repository": {
