@@ -1,24 +1,24 @@
 'use strict';
-
-const fs = require('fs');
-const fsPromises = fs.promises;
+const util = require('util');
 const events = require('./event');
+const fs = require('fs');
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+const file = module.exports = exports = {};
 
+file.loadFile = (file) => {
+  if(!file){throw 'you must enter a file path';}
+  readFile(file);
+}
 
-const alterFile = (file) => {
-  if(arguments.length !== 1){
-    throw 'you must enter a file path';
-  }
-  
-  fsPromises.readFile(file)
-    .then(data => {
-      events.emit('success', data);
-      let text = data.toString().toUpperCase();
-      fsPromises.writeFile( file, Buffer.from(text))
-        .then( () => events.emit('saved', file))
-        .catch( (error) => events.emit('error', error));
-    })
-    .catch( (error => events.emit('error', error)));
-};
+file.saveFile = (file, buffer) => writeFile(file, buffer);
 
-module.exports = alterFile;
+file.convertBuffer = buffer => Buffer.from(buffer.toString().trim().toUpperCase());
+
+file.alterFile = incomingFile => 
+  file.loadFile(incomingFile)
+    .then( contents => file.convertBuffer(contents))
+    .then( bufffer => file.saveFile(incomingFile, buffer))
+    .then( () => {events.emit('file-save', incomingFile); return true;})
+    .catch( error => events.emit('file-error', error));
+
