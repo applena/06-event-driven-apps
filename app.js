@@ -1,7 +1,7 @@
 'use strict';
 
 require('./logger');
-let alterFile = require('./file-to-upper');
+let file = require('./file-to-upper');
 
-let file = process.argv.slice(2).shift();
-alterFile(file);
+let userFile = process.argv.slice(2).shift();
+file.alterFile(userFile);
