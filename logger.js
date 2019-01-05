@@ -12,8 +12,8 @@ const listeners = {
 
   success: function (data){
     console.log('successfully read');
-  }
-}
+  },
+};
 
 events.on('success', listeners.success);
 events.on('error', listeners.errorHandler);
